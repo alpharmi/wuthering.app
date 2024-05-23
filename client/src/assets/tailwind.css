@@ -10,13 +10,14 @@
 :root {
     --container: #191c21;
     --highlight: #D8B77E;
+    --text: #edf2f7;
 }
 
 html {
     color-scheme: light dark;
     background: url("/other/bg.jpg") no-repeat;
     overflow-x: hidden;
-    color: #edf2f7;
+    color: var(--text);
     font-family: "H7GBK-Heavy"
 }
 
@@ -33,6 +34,15 @@ html {
     border-width: 1px;
     box-shadow: 0px 5px 10px #00000080;
     overflow: hidden;
+}
+
+.bgbutton {
+    background-color: var(--text);
+    border-radius: 0.3rem;
+    border-color: var(--highlight);
+    border-width: 1px;
+    box-shadow: 0px 5px 10px #00000080;
+    color: var(--container);
 }
 
 .textshadow {
@@ -56,4 +66,9 @@ html {
     height: 2px;
     top: 10px;
     width: calc(100% - 40px);
+}
+
+input:focus {
+    outline-color: var(--highlight);
+    outline-style: solid
 }

@@ -13,6 +13,11 @@
                     </button>
                     <p id="copyCommand" class="break-all">Start-Process powershell -Verb runAs -ArgumentList '-NoExit -Command "Invoke-Expression <br/> (New-Object Net.WebClient).DownloadString(\"https://raw.githubusercontent.com/alpharmi/ww/main/getGacha.ps1\")"'</p>
                 </div>
+                <Instruction number="4" description="Paste the Gacha Log URL into the box below."/>
+                <div class="flex flex-col gap-3 ml-10">
+                    <input type="text" placeholder="Please paste Gacha Log URL here." class="bg-[#191c2175] p-3 shadow-lg">
+                    <Button class="bgbutton p-2 w-96 self-end textshadow">Import</Button>
+                </div>
             </div>
         </div>
     </div>

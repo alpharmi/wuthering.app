@@ -27,6 +27,8 @@ if (Test-Path ($gachaLogPath + "\debug.log") -PathType Leaf) {
 
     if ($url) {
         Write-Output $url
+        Set-Clipboard -Value $url
+        Write-Output "Gacha Url has been saved to clipboard."
     } else {
         Write-Output "Unable to find Gacha Url. Please open Convene Records in game."
     }
