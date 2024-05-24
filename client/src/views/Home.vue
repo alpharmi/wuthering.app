@@ -24,9 +24,4 @@
             path: route,
         })
     }
-
-
-    const x = "max"
-
-    const a = `hello this is ${x}`
 </script>

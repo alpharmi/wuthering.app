@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cd client && vite", 
+    "dev": "cd client && vite",
+    "server": "concurrently \"node server.js \" \"cd client && vite\"",
     "build": "cd client && vite build"
   },
   "dependencies": {
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "^10.4.13",
+    "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
     "vue": "^3.2.47",

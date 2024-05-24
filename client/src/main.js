@@ -5,10 +5,12 @@ import App from './App.vue'
 import './assets/tailwind.css'
 
 import Home from "./views/Home.vue"
+import Convene from "./views/Convene.vue"
 import Import from './views/Import.vue'
 
 const routes = [
     { path: "", component: Home },
+    { path: "/convene", component: Convene },
     { path: "/convene/import", component: Import }
 ]
 

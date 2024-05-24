@@ -1,3 +1,6 @@
+const express = require("express")
+const router = express.Router()
+
 async function handler(req, res) {
     const query = req.query
     var gacha = {}
@@ -23,19 +26,9 @@ async function handler(req, res) {
         }
     }
 
-    console.log(gacha)
-
-    //res.json(gacha)
+    res.json(gacha)
 }
 
-/*
-handler({
-    query: {
-        svr_id: "86d52186155b148b5c138ceb41be9650",
-        resources_id: "4df1ed7da8530acc4263774922de7d71",
-        record_id: "6edcf9c141282139bc72dd8e4dae8b86",
-        player_id: "700362390",
-        gacha_type: 5
-    }
-})
-*/
+router.get("/importGacha", handler)
+
+module.exports = router

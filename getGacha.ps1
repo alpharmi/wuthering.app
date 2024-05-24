@@ -4,8 +4,10 @@ $ProgressPreference = 'SilentlyContinue'
 #Find Game
 Write-Output "Finding game..."
 
-$launcher = (Get-StartApps  | ?{$_.appid -match "Wuthering Waves\\launcher.exe"}).PSObject.Properties.Value[1]
-$gachaLogPath = $launcher.replace("\launcher.exe", "") + '\Wuthering Waves Game\Client\Binaries\Win64\ThirdParty\KrPcSdk_Global\KRSDKRes\KRSDKWebView'
+$64 = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
+$32 = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
+$launcher = (Get-ItemProperty -Path $32, $64 | Where-Object { $_.DisplayName -like "*wuthering*" } | Select InstallPath).PSObject.Properties.Value
+$gachaLogPath = $launcher + '\Wuthering Waves Game\Client\Binaries\Win64\ThirdParty\KrPcSdk_Global\KRSDKRes\KRSDKWebView'
 
 #Find Gacha Url
 Write-Output "Finding Gacha Url..."

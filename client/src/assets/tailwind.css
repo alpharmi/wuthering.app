@@ -68,6 +68,10 @@ html {
     width: calc(100% - 40px);
 }
 
+.banner {
+    transform-origin: 100% 50%;
+}
+
 input:focus {
     outline-color: var(--highlight);
     outline-style: solid
