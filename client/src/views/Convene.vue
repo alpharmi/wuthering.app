@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-    import Note from "../Components/Note.vue"
+    import Note from "../components/Note.vue"
 </script>
 
 <script>
