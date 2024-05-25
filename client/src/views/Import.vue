@@ -47,7 +47,7 @@ import Split from '../components/Split.vue'
     export default {
         data() {
             return {
-                production: false,
+                production: true,
                 copied: false,
                 importing: "",
                 totalConvenes: 0
@@ -56,7 +56,7 @@ import Split from '../components/Split.vue'
         methods: {
             async importGacha() {
                 const input = this.$refs.gachaLogURL
-                const gachaLogURL = "https://aki-gm-resources-oversea.aki-game.net/aki/gacha/index.html#/record?svr_id=86d52186155b148b5c138ceb41be9650&player_id=700362390&lang=en&gacha_id=1&gacha_type=5&svr_area=global&record_id=6edcf9c141282139bc72dd8e4dae8b86&resources_id=4df1ed7da8530acc4263774922de7d71" //input.value
+                const gachaLogURL = this.production? input.value: "https://aki-gm-resources-oversea.aki-game.net/aki/gacha/index.html#/record?svr_id=86d52186155b148b5c138ceb41be9650&player_id=700362390&lang=en&gacha_id=1&gacha_type=5&svr_area=global&record_id=6edcf9c141282139bc72dd8e4dae8b86&resources_id=4df1ed7da8530acc4263774922de7d71"
 
                 if (gachaLogURL && gachaLogURL.startsWith("https://aki-gm-resources-oversea.aki-game.net/aki/gacha/index.html#/record")) {
                     this.totalConvenes = 0
