@@ -9,7 +9,12 @@ module.exports = {
     extend: {
       colors: {
         "container": "var(--container)",
-        "highlight": "var(--highlight)"
+        "highlight": "var(--highlight)",
+        "description": "var(--description)",
+
+        "quality5": "var(--quality5)",
+        "quality4": "var(--quality4)",
+        "quality3": "var(--quality3)",
       }
     },
   },

@@ -14,6 +14,7 @@
                     </button>
                     <p id="copyCommand" class="break-all w-[55rem]">[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12; Invoke-Expression (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/alpharmi/ww/main/getGacha.ps1")</p>
                 </div>
+                <a href="https://github.com/alpharmi/wuthering.app/blob/main/getGacha.ps1" class="ml-10 w-min">GitHub</a>
                 <Instruction number="4" description="Paste the Gacha Log URL into the box below."/>
                 <div class="flex flex-col gap-3 ml-10">
                     <input ref="gachaLogURL" type="text" placeholder="Please paste Gacha Log URL here." class="bg-[#191c2175] p-3 shadow-lg">
@@ -31,7 +32,8 @@
 </template>
 
 <script setup>
-    import Split from '../components/Split.vue'
+    import { version } from 'vue'
+import Split from '../components/Split.vue'
     import Instruction from "../components/convene/Instruction.vue"
 
     import * as vueRouter from "vue-router"
@@ -40,7 +42,7 @@
 </script>
 
 <script>
-    const gachaTypes = {beginner: 5, character: 1/*, weapon: 0, standard: 0*/}
+    const gachaTypes = {beginner: 5, character: 1, weapon: 2, standard: 3}
 
     export default {
         data() {
@@ -90,12 +92,11 @@
 
                             for (const [i, convene] of Object.entries(gachaData).reverse()) {
                                 const conveneData = {
-                                    name: convene.name,
+                                    name: convene.name.replaceAll(" ", "_"),
                                     quality: convene.qualityLevel,
+                                    type: convene.resourceType.toLowerCase(),
                                     date: convene.time
                                 }
-
-                                console.log(convene)
 
                                 if (convene.qualityLevel >= 4) {
                                     conveneData["pity"] = pity[`quality${convene.qualityLevel}`] - i
@@ -109,6 +110,10 @@
                             banner.pity = {quality5: Number(pity.quality5), quality4: Number(pity.quality4)}
 
                             localStorage.setItem(`${gachaType}_banner`, JSON.stringify(banner))
+                        } else {
+                            if (!localStorage.getItem(`${gachaType}_banner}`)) {
+                                localStorage.setItem(`${gachaType}_banner`, JSON.stringify({data: [], monthlyPulls: [], pity: {quality5: 0, quality4: 0}, version: 1.0}))
+                            }
                         }
                     }
 

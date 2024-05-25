@@ -10,15 +10,24 @@
 :root {
     --container: #191c21;
     --highlight: #D8B77E;
+    --description: #a8a29e;
     --text: #edf2f7;
+    
+    --quality5: #ffd17c;
+    --quality4: #ffabfc;
+    --quality3: #b9c6ff;
 }
 
 html {
     color-scheme: light dark;
-    background: url("/other/bg.jpg") no-repeat;
     overflow-x: hidden;
     color: var(--text);
     font-family: "H7GBK-Heavy"
+}
+
+main {
+    background: url("/other/bg.jpg") no-repeat;
+    background-position: center bottom;
 }
 
 #app {
@@ -43,6 +52,9 @@ html {
     border-width: 1px;
     box-shadow: 0px 5px 10px #00000080;
     color: var(--container);
+}
+.bgbutton:hover {
+    filter: brightness(1.2);
 }
 
 .textshadow {
@@ -72,7 +84,35 @@ html {
     transform-origin: 100% 50%;
 }
 
+.inlineimage {
+    display: flex;
+    align-items: center;
+}
+
+.inlineimage img {
+    width: 2rem;
+    object-fit: contain;
+}
+
+.pull-5 {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 1%, #ffd17c33 20%, rgba(0, 0, 0, 0) 99%);
+}
+.pull-4 {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 1%, #ffabfc33 20%, rgba(0, 0, 0, 0) 99%);
+}
+.pull-3 {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 1%, #00000080 20%, rgba(0, 0, 0, 0) 99%);
+}
+
 input:focus {
     outline-color: var(--highlight);
     outline-style: solid
+}
+
+a {
+    color: var(--highlight);
+}
+a:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 4px 1px -3px var(--highlight);
 }
