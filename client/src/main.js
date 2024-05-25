@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-//import { inject } from '@vercel/analytics'
+import { inject } from '@vercel/analytics'
 import * as VueRouter from 'vue-router'
 import App from './App.vue'
 import './assets/tailwind.css'
@@ -23,4 +23,4 @@ const router = VueRouter.createRouter({
 const app = createApp(App)
 app.use(router)
 app.mount("#app")
-//inject()
+inject()
