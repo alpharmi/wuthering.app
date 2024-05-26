@@ -12,7 +12,7 @@
   <footer class="flex flex-col gap-1 items-center justify-center w-full h-48 bg-[#1E1E20]">
     <div class="flex flex-col items-center justify-center text-description">
       <p>wuthering.app</p>
-      <p>Game content are trademarks and copyright of Guangzhou Kuro Technology Co., Ltd.</p>
+      <p>Wuthering Waves and content are trademarks and copyright of Guangzhou Kuro Technology Co., Ltd.</p>
       <p>Design inspired by <a href="https://wutheringwaves.kurogames.com/en/">wutheringwaves.kurogames.com</a> and <a href="https://paimon.moe/">paimon.moe</a>.</p>
     </div>
     <div class="w-[50rem]">
