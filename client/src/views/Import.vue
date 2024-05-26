@@ -53,7 +53,7 @@ import Split from '../components/Split.vue'
     export default {
         data() {
             return {
-                production: false,
+                production: true,
                 copied: false,
                 importing: "",
                 totalConvenes: 0
