@@ -22,11 +22,11 @@ html {
     color-scheme: light dark;
     overflow-x: hidden;
     color: var(--text);
-    font-family: "H7GBK-Heavy";
+    font-family: "H7GBK-Heavy", "Segoe-ui";
 }
 
 main {
-    background: url("/other/bg2.jpg") no-repeat;
+    background: url("/other/bg.jpg") no-repeat;
     background-size: cover;
     background-position: center bottom;
 }
