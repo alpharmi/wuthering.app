@@ -1,7 +1,7 @@
 <template>
   <header class="w-full fixed h-14 from-[#191c214d] to-transparent bg-gradient-to-r backdrop-blur-md text-description shadow-md z-50">
     <div class="flex gap-3 w-full h-full items-center px-10 text-2xl">
-      <h1>wuthering.app</h1>
+      <button @click="redirect('/')">wuthering.app</button>
       <div v-if="routePage" class="w-2 h-2 bg-white rounded-full opacity-10"></div>
       <p class="textgold">{{ currentRoute() }}</p>
     </div>
@@ -55,4 +55,10 @@
   import * as vueRouter from "vue-router"
 
   const router = vueRouter.useRouter()
+
+  function redirect(route) {
+      router.push({
+          path: route,
+      })
+  }
 </script>
