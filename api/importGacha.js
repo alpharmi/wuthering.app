@@ -26,6 +26,8 @@ export default async function handler(req, res) { //async function handler(req, 
         }
     }
 
+    console.log(query.player_id)
+
     res.json(gacha)
 }
 
