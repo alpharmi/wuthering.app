@@ -16,7 +16,7 @@ if (!$gamePath) {
 
     $path = read-host "Game path: "
 
-    if ($path -And $path.EndsWith("Wuthering Waves")) {
+    if ($path -And $path.ToLower() -like "*wuthering*") {
         $gamePath = $path
         Write-Output "Manually found game path."
     } else {
