@@ -4,7 +4,7 @@
     </div>
     <div class="flex px-[8%] pt-10 h-full gap-10">
         <div class="flex flex-col gap-5 w-48 min-w-48 h-auto">
-            <button @click="switchBanner(bannerName)" v-for="bannerName in ['character', 'weapon', 'standard', 'beginner']" class="w-full flex justify-end shadow-md">
+            <button @click="amount = 10; switchBanner(bannerName)" v-for="bannerName in ['character', 'weapon', 'standard', 'beginner']" class="w-full flex justify-end shadow-md">
                 <img v-if="bannerName != banner" :src="`/banners/${bannerName}.png`" class="banner relative hover:scale-[1.05] hover:brightness-125 transition-all duration-100">
                 <img v-if="bannerName == banner" :src="`/banners/${bannerName}_selected.png`">
             </button>
@@ -43,13 +43,13 @@
                             <p class="w-24 h-auto text-right pr-2 text-4xl text text-quality4">{{ pity.quality4 }}</p>
                         </div>
                     </div>
-                    <div class="w-[38rem] h-auto flex flex-col gap-10 bgcontainer p-3 pt-9">
+                    <div class="w-[38rem] h-auto flex flex-col bgcontainer p-3 pt-9">
                         <div class="flex justify-center items-center w-full h-14 gap-3">
                             <button @click="switchBanner(banner, 5)" :class="{'bg-opacity-20': filters[5]},{'bg-opacity-0': !filters[5]}" class="w-14 h-14 border rounded-lg bg-[#ffd17c] border-quality5 inlineimage pl-2 text-xl">5<img :src="`/other/star5.png`" class="h-7 pr-2"></button>
                             <button @click="switchBanner(banner, 4)" :class="{'bg-opacity-20': filters[4]},{'bg-opacity-0': !filters[4]}" class="w-14 h-14 border rounded-lg bg-[#ffabfc] border-quality4 inlineimage pl-2 text-xl">4<img :src="`/other/star4.png`" class="h-7 pr-2"></button>
                             <button @click="switchBanner(banner, 3)" :class="{'bg-opacity-20': filters[3]},{'bg-opacity-0': !filters[3]}" class="w-14 h-14 border rounded-lg bg-[#b9c6ff] border-quality3 inlineimage pl-2 text-xl">3<img :src="`/other/star3.png`" class="h-7 pr-2"></button>
                         </div>
-                        <table class="w-full">
+                        <table class="w-full mt-10">
                             <tr class="text-highlight text-left">
                                 <th class="pl-8">Date</th>
                                 <th>Pity</th>
@@ -61,6 +61,7 @@
                                 <th class="pl-8 inlineimage"><img :src="`/${pull.type}/${pull.name.replaceAll(':', '_c').toLowerCase()}.webp`" class="h-10 mr-4 scale-[1.3]">{{ pull.name.replaceAll("_", " ") }}</th>
                             </tr>
                         </table>
+                        <button @click="amount = 100; switchBanner(banner)" class="mt-2 textshadow">˅</button>
                     </div>
                 </div>
                 <button @click="redirect('/convene/import')" class="bgbutton p-2 px-10 self-center mt-5">Import Convene History</button>
@@ -95,6 +96,7 @@
                 lifetimePulls: 0,
                 pity: { quality5: 0, quality4: 0 },
                 filters: { ["5"]: true, ["4"]: true, ["3"]: true },
+                amount: 10,
                 pulls: null
             }
         },
@@ -121,12 +123,12 @@
                     this.pity.quality5 = bannerData.pity.quality5
                     this.pity.quality4 = bannerData.pity.quality4
 
-                    this.pulls = bannerData.data.filter(pull => this.filters[pull.quality]).slice(0, 10)
+                    this.pulls = bannerData.data.filter(pull => this.filters[pull.quality]).slice(0, this.amount)
                 }
             }
         },
         mounted() {
-            this.switchBanner(this.banner)
+            this.switchBanner(this.banner, 10)
         }
     }
 </script>
