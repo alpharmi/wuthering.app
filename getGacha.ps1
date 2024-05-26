@@ -2,12 +2,33 @@ Add-Type -AssemblyName System.Web
 $ProgressPreference = 'SilentlyContinue'
 
 #Find Game
-Write-Output "Finding game..."
+Write-Output "Attempting to find game path automatically..."
 
 $64 = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
 $32 = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
-$launcher = (Get-ItemProperty -Path $32, $64 | Where-Object { $_.DisplayName -like "*wuthering*" } | Select InstallPath).PSObject.Properties.Value
-$gachaLogPath = $launcher + '\Wuthering Waves Game\Client\Binaries\Win64\ThirdParty\KrPcSdk_Global\KRSDKRes\KRSDKWebView'
+$gamePath = (Get-ItemProperty -Path $32, $64 | Where-Object { $_.DisplayName -like "*wuthering*" } | Select InstallPath).PSObject.Properties.Value
+
+if (!$gamePath) {
+    Write-Output " "
+    Write-Output "Couldn't automatically find game path. Please enter game path manually."
+    Write-Output "Ex. E:\Wuthering Waves"
+    Write-Output " "
+
+    $path = read-host "Game path: "
+
+    if ($path -And $path.EndsWith("Wuthering Waves")) {
+        $gamePath = $path
+        Write-Output "Manually found game path."
+    } else {
+        Write-Output "Invalid game path. Please try again."
+    }
+} else {
+    Write-Output "Automatically found game path."
+}
+
+Write-Output " "
+
+$gachaLogPath = $gamePath + '\Wuthering Waves Game\Client\Binaries\Win64\ThirdParty\KrPcSdk_Global\KRSDKRes\KRSDKWebView'
 
 #Find Gacha Url
 Write-Output "Finding Gacha Url..."

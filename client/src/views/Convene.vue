@@ -45,8 +45,8 @@
                 <div class="w-[38rem] h-[38rem] flex flex-col gap-10 bgcontainer p-3 pt-9">
                     <div class="flex justify-center items-center w-full h-14 gap-3">
                         <button @click="switchBanner(banner, 5)" :class="{'bg-opacity-20': filters[5]},{'bg-opacity-0': !filters[5]}" class="w-14 h-14 border rounded-lg bg-[#ffd17c] border-quality5 inlineimage pl-2 text-xl">5<img :src="`/other/star5.png`" class="h-7 pr-2"></button>
-                        <button @click="switchBanner(banner, 4)" :class="{'bg-opacity-20': filters[4]},{'bg-opacity-0': !filters[4]}" class="w-14 h-14 border rounded-lg bg-[#ffabfc] border-quality4 bg-opacity-20 inlineimage pl-2 text-xl">4<img :src="`/other/star4.png`" class="h-7 pr-2"></button>
-                        <button @click="switchBanner(banner, 3)" :class="{'bg-opacity-20': filters[3]},{'bg-opacity-0': !filters[3]}" class="w-14 h-14 border rounded-lg bg-[#b9c6ff] border-quality3 bg-opacity-20 inlineimage pl-2 text-xl">3<img :src="`/other/star3.png`" class="h-7 pr-2"></button>
+                        <button @click="switchBanner(banner, 4)" :class="{'bg-opacity-20': filters[4]},{'bg-opacity-0': !filters[4]}" class="w-14 h-14 border rounded-lg bg-[#ffabfc] border-quality4 inlineimage pl-2 text-xl">4<img :src="`/other/star4.png`" class="h-7 pr-2"></button>
+                        <button @click="switchBanner(banner, 3)" :class="{'bg-opacity-20': filters[3]},{'bg-opacity-0': !filters[3]}" class="w-14 h-14 border rounded-lg bg-[#b9c6ff] border-quality3 inlineimage pl-2 text-xl">3<img :src="`/other/star3.png`" class="h-7 pr-2"></button>
                     </div>
                     <table class="w-full">
                         <tr class="text-highlight text-left">
@@ -95,6 +95,7 @@
                 const bannerData = JSON.parse(localStorage.getItem(`${bannerName}_banner`))
 
                 if (filter) {
+                    console.log(this.filters[4])
                     this.filters[filter] = !this.filters[filter]
                 }
 

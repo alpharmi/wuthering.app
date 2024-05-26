@@ -15,7 +15,13 @@
                     <p id="copyCommand" class="break-all w-[55rem]">[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12; Invoke-Expression (New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/alpharmi/ww/main/getGacha.ps1")</p>
                 </div>
                 <a href="https://github.com/alpharmi/wuthering.app/blob/main/getGacha.ps1" class="ml-10 w-min">GitHub</a>
-                <Instruction number="4" description="Paste the Gacha Log URL into the box below."/>
+                <div class="flex">
+                    <Instruction number="4" description="Paste your game path if asked."/>
+                    <div class="group">
+                        <p class="ml-2 text-xs rounded-full border-2 text-center pt-0 w-5 h-5 mt-1 cursor-pointer tooltip">?<img class="absolute top-[33.5rem] left-[53rem] min-w-[650px] min-h-[224px] border-highlight border rounded-lg drop-shadow-md opacity-0" src="/other/manual_game_path.png"></p>
+                    </div>
+                </div>
+                <Instruction number="5" description="Paste the Gacha Log URL into the box below."/>
                 <div class="flex flex-col gap-3 ml-10">
                     <input ref="gachaLogURL" type="text" placeholder="Please paste Gacha Log URL here." class="bg-[#191c2175] p-3 shadow-lg">
                     <button @click="importGacha" class="bgbutton p-2 w-96 self-end textshadow">Import</button>

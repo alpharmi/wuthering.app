@@ -26,7 +26,7 @@ html {
 }
 
 main {
-    background: url("/other/bg.jpg") no-repeat;
+    background: url("/other/bg2.jpg") no-repeat;
     background-size: cover;
     background-position: center bottom;
 }
@@ -103,6 +103,15 @@ main {
 }
 .pull-3 {
     background: linear-gradient(90deg, rgba(0, 0, 0, 0) 1%, #00000080 20%, rgba(0, 0, 0, 0) 99%);
+}
+
+
+.tooltip img {
+    transition-property: opacity;
+    transition-duration: 200ms;
+}
+.tooltip:hover img {
+    opacity: 100;
 }
 
 input:focus {
