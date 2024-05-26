@@ -4,7 +4,7 @@
             <div class="bgcontainer p-3">
                 <p class="text-2xl">Welcome to <span class="textgold">wuthering.app</span></p>
                 <p class="text-md pt-2">
-                    Currently includes Gacha Tracker, and general game information 
+                    Currently includes Pity Counter, and general game information 
                     for Wuthering Waves. Please note everything is still in development
                     and some features may not work as expected.
                 </p>
