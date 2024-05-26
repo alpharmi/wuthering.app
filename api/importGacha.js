@@ -1,7 +1,7 @@
-const express = require("express")
-const router = express.Router()
+//const express = require("express")
+//const router = express.Router()
 
-async function handler(req, res) {
+export default async function handler(req, res) { //async function handler(req, res) {
     const query = req.query
     var gacha = {}
 
@@ -29,6 +29,6 @@ async function handler(req, res) {
     res.json(gacha)
 }
 
-router.get("/importGacha", handler)
+//router.get("/importGacha", handler)
 
-module.exports = router
+//module.exports = router

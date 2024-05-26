@@ -18,13 +18,13 @@
                 <div class="flex">
                     <Instruction number="4" description="Paste your game path if asked."/>
                     <div class="group">
-                        <p class="ml-2 text-xs rounded-full border-2 text-center pt-0 w-5 h-5 mt-1 cursor-pointer tooltip">?<img class="absolute top-[33.5rem] left-[53rem] min-w-[650px] min-h-[224px] border-highlight border rounded-lg drop-shadow-md opacity-0" src="/other/manual_game_path.png"></p>
+                        <p class="ml-2 text-xs rounded-full border-2 text-center pt-0 w-5 h-5 mt-1 cursor-pointer tooltip">?<img class="absolute top-[33.5rem] left-[53rem] min-w-[650px] min-h-[224px] border-highlight border rounded-lg drop-shadow-md opacity-0 pointer-events-none" src="/other/manual_game_path.png"></p>
                     </div>
                 </div>
                 <Instruction number="5" description="Paste the Gacha Log URL into the box below."/>
                 <div class="flex flex-col gap-3 ml-10">
                     <input ref="gachaLogURL" type="text" placeholder="Please paste Gacha Log URL here." class="bg-[#191c2175] p-3 shadow-lg">
-                    <button @click="importGacha" class="bgbutton p-2 w-96 self-end textshadow">Import</button>
+                    <button @click="importGacha" class="bgbutton p-2 w-96 self-end">Import</button>
                 </div>
                 <div class="flex flex-col w-full h-24 items-center justify-center text-center">
                     <div v-if="importing">
@@ -53,7 +53,7 @@ import Split from '../components/Split.vue'
     export default {
         data() {
             return {
-                production: true,
+                production: false,
                 copied: false,
                 importing: "",
                 totalConvenes: 0
@@ -70,7 +70,7 @@ import Split from '../components/Split.vue'
                     for (const [gachaType, gachaTypeId] of Object.entries(gachaTypes)) {
                         this.importing = gachaType
 
-                        const url = this.production? "": "http://localhost:3000/api/importGacha?"
+                        const url = this.production? "https://wuthering.app/api/importGacha?": "http://localhost:3000/api/importGacha?"
                         const quereries = Object.fromEntries(new URLSearchParams(gachaLogURL.slice(75)))
 
                         const gachaData = await fetch(url + new URLSearchParams({

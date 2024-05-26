@@ -53,6 +53,7 @@ main {
     border-width: 1px;
     box-shadow: 0px 5px 10px #00000080;
     color: var(--container);
+    text-shadow: 0px 0.3px, 0.3px 0px, 0.3px 0.3px;
 }
 .bgbutton:hover {
     filter: brightness(1.2);

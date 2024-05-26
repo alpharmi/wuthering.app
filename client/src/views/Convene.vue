@@ -11,56 +11,63 @@
         </div>
         <div class="w-0.5 opacity-50 h-[45rem] from-transparent via-highlight via-50% to-transparent bg-gradient-to-b"></div>
         <div class="flex flex-col w-full">
-            <h1 class="capitalize textgold text-xl">{{ banner }} Convene</h1>
-            <div class="flex w-full gap-5 pt-3">
-                <div class="w-[19rem] flex flex-col gap-4 h-[19rem]">
-                    <div class="flex justify-between items-center bgcontainer h-22 p-3">
-                        <div class="ml-1 w-full">
-                            <p class="text-highlight text-xl">Lifetime Convenes</p>
-                            <div class="flex w-full h-8 -ml-2 item-center">
-                                <p class="inlineimage text-description"><img src="/other/astrite.png" class="h-full">{{ (lifetimePulls * 160).toLocaleString() }}</p>
+            <div :class="{'blur-sm brightness-[0.2]': pulls == null}" class="flex flex-col w-full">
+                <h1 class="capitalize textgold text-xl">{{ banner }} Convene</h1>
+                <div class="flex w-full gap-5 pt-3">
+                    <div class="w-[19rem] flex flex-col gap-4 h-[19rem]">
+                        <div class="flex justify-between items-center bgcontainer h-22 p-3">
+                            <div class="ml-1 w-full">
+                                <p class="text-highlight text-xl">Lifetime Convenes</p>
+                                <div class="flex w-full h-8 -ml-2 item-center">
+                                    <p class="inlineimage text-description"><img src="/other/astrite.png" class="h-full">{{ (lifetimePulls * 160).toLocaleString() }}</p>
+                                </div>
                             </div>
+                            <p class="w-24 h-auto text-right pr-2 text-4xl">{{ lifetimePulls }}</p>
                         </div>
-                        <p class="w-24 h-auto text-right pr-2 text-4xl">{{ lifetimePulls }}</p>
+                        <div class="flex justify-between items-center bgcontainer h-22 p-3">
+                            <div class="ml-1 w-full">
+                                <p class="text-highlight text-xl flex">5<img src="/other/star5.png" class="w-5 h-5 mt-1 mr-1"> Pity</p>
+                                <div class="flex w-full h-8 -ml-2 item-center">
+                                    <p class="text-description pl-2 pt-1">Guaranteed at 80</p>
+                                </div>
+                            </div>
+                            <p class="w-24 h-auto text-right pr-2 text-4xl text text-quality5">{{ pity.quality5 }}</p>
+                        </div>
+                        <div class="flex justify-between items-center bgcontainer h-22 p-3">
+                            <div class="ml-1 w-full">
+                                <p class="text-highlight text-xl flex">4<img src="/other/star5.png" class="w-5 h-5 mt-1 mr-1"> Pity</p>
+                                <div class="flex w-full h-8 -ml-2 item-center">
+                                    <p class="text-description pl-2 pt-1">Guaranteed at 10</p>
+                                </div>
+                            </div>
+                            <p class="w-24 h-auto text-right pr-2 text-4xl text text-quality4">{{ pity.quality4 }}</p>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-center bgcontainer h-22 p-3">
-                        <div class="ml-1 w-full">
-                            <p class="text-highlight text-xl flex">5<img src="/other/star5.png" class="w-5 h-5 mt-1 mr-1"> Pity</p>
-                            <div class="flex w-full h-8 -ml-2 item-center">
-                                <p class="text-description pl-2 pt-1">Guaranteed at 80</p>
-                            </div>
+                    <div class="w-[38rem] h-[38rem] flex flex-col gap-10 bgcontainer p-3 pt-9">
+                        <div class="flex justify-center items-center w-full h-14 gap-3">
+                            <button @click="switchBanner(banner, 5)" :class="{'bg-opacity-20': filters[5]},{'bg-opacity-0': !filters[5]}" class="w-14 h-14 border rounded-lg bg-[#ffd17c] border-quality5 inlineimage pl-2 text-xl">5<img :src="`/other/star5.png`" class="h-7 pr-2"></button>
+                            <button @click="switchBanner(banner, 4)" :class="{'bg-opacity-20': filters[4]},{'bg-opacity-0': !filters[4]}" class="w-14 h-14 border rounded-lg bg-[#ffabfc] border-quality4 inlineimage pl-2 text-xl">4<img :src="`/other/star4.png`" class="h-7 pr-2"></button>
+                            <button @click="switchBanner(banner, 3)" :class="{'bg-opacity-20': filters[3]},{'bg-opacity-0': !filters[3]}" class="w-14 h-14 border rounded-lg bg-[#b9c6ff] border-quality3 inlineimage pl-2 text-xl">3<img :src="`/other/star3.png`" class="h-7 pr-2"></button>
                         </div>
-                        <p class="w-24 h-auto text-right pr-2 text-4xl text text-quality5">{{ pity.quality5 }}</p>
-                    </div>
-                    <div class="flex justify-between items-center bgcontainer h-22 p-3">
-                        <div class="ml-1 w-full">
-                            <p class="text-highlight text-xl flex">4<img src="/other/star5.png" class="w-5 h-5 mt-1 mr-1"> Pity</p>
-                            <div class="flex w-full h-8 -ml-2 item-center">
-                                <p class="text-description pl-2 pt-1">Guaranteed at 10</p>
-                            </div>
-                        </div>
-                        <p class="w-24 h-auto text-right pr-2 text-4xl text text-quality4">{{ pity.quality4 }}</p>
+                        <table class="w-full">
+                            <tr class="text-highlight text-left">
+                                <th class="pl-8">Date</th>
+                                <th>Pity</th>
+                                <th class="pl-8">Name</th>
+                            </tr>
+                            <tr v-for="pull in pulls" :class="`pull-${pull.quality}`" class="border-t border-[#2c3038]">
+                                <th class="w-[15rem] text-description">{{ pull.date }}</th>
+                                <th :style="`color: hsl(${pityColour(pull)},100%,70%)`" class="w-[2rem]">{{ pull.pity || 1 }}</th>
+                                <th class="pl-8 inlineimage"><img :src="`/${pull.type}/${pull.name.replaceAll(':', '_c').toLowerCase()}.webp`" class="h-10 mr-4 scale-[1.3]">{{ pull.name.replaceAll("_", " ") }}</th>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-                <div class="w-[38rem] h-[38rem] flex flex-col gap-10 bgcontainer p-3 pt-9">
-                    <div class="flex justify-center items-center w-full h-14 gap-3">
-                        <button @click="switchBanner(banner, 5)" :class="{'bg-opacity-20': filters[5]},{'bg-opacity-0': !filters[5]}" class="w-14 h-14 border rounded-lg bg-[#ffd17c] border-quality5 inlineimage pl-2 text-xl">5<img :src="`/other/star5.png`" class="h-7 pr-2"></button>
-                        <button @click="switchBanner(banner, 4)" :class="{'bg-opacity-20': filters[4]},{'bg-opacity-0': !filters[4]}" class="w-14 h-14 border rounded-lg bg-[#ffabfc] border-quality4 inlineimage pl-2 text-xl">4<img :src="`/other/star4.png`" class="h-7 pr-2"></button>
-                        <button @click="switchBanner(banner, 3)" :class="{'bg-opacity-20': filters[3]},{'bg-opacity-0': !filters[3]}" class="w-14 h-14 border rounded-lg bg-[#b9c6ff] border-quality3 inlineimage pl-2 text-xl">3<img :src="`/other/star3.png`" class="h-7 pr-2"></button>
-                    </div>
-                    <table class="w-full">
-                        <tr class="text-highlight text-left">
-                            <th class="pl-8">Date</th>
-                            <th>Pity</th>
-                            <th class="pl-8">Name</th>
-                        </tr>
-                        <tr v-for="pull in pulls" :class="`pull-${pull.quality}`" class="border-t border-[#2c3038]">
-                            <th class="w-[15rem] text-description">{{ pull.date }}</th>
-                            <th :style="`color: hsl(${pityColour(pull)},100%,70%)`" class="w-[2rem]">{{ pull.pity || 1 }}</th>
-                            <th class="pl-8 inlineimage"><img :src="`/${pull.type}/${pull.name.replaceAll(':', '_c').toLowerCase()}.webp`" class="h-10 mr-4 scale-[1.3]">{{ pull.name.replaceAll("_", " ") }}</th>
-                        </tr>
-                    </table>
-                </div>
+                <button @click="redirect('/convene/import')" class="bgbutton p-2 px-10 self-center mt-5">Import Convene History</button>
+            </div>
+            <div v-if="!pulls" class="absolute flex flex-col left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-2">
+                <p class="text-xl">You currently have no Convene History.</p>
+                <button @click="redirect('/convene/import')" class="bgbutton p-2 px-10">Import Convene History</button>
             </div>
         </div> 
     </div>
@@ -68,6 +75,16 @@
 
 <script setup>
     import Note from "../components/Note.vue"
+
+    import * as vueRouter from "vue-router"
+
+    const router = vueRouter.useRouter()
+
+    function redirect(route) {
+        router.push({
+            path: route,
+        })
+    }
 </script>
 
 <script>
