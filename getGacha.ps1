@@ -7,8 +7,12 @@ Write-Output "Attempting to find game path automatically..."
 $64 = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
 $32 = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
 $gamePath = (Get-ItemProperty -Path $32, $64 | Where-Object { $_.DisplayName -like "*wuthering*" } | Select InstallPath).PSObject.Properties.Value
+$gachaLogPathExists = Test-Path ($gamePath + '\Wuthering Waves Game\Client\Binaries\Win64\ThirdParty\KrPcSdk_Global\KRSDKRes\KRSDKWebView')
+$method = "automatic"
 
-if (!$gamePath) {
+if (!$gamePath -or !$gachaLogPathExists) {
+    $method = "manual"
+
     Write-Output " "
     Write-Output "Couldn't automatically find game path. Please enter game path manually."
     Write-Output "Ex. E:\Wuthering Waves"
@@ -44,7 +48,7 @@ if (Test-Path ($gachaLogPath + "\debug.log") -PathType Leaf) {
         $line = $cacheDataLines[$i]
 
         if ($line.Contains("https://aki-gm-resources-oversea.aki-game.net/aki/gacha/index.html#/record")) {
-            $url = ($line -split ': "')[1].replace('",', "")
+            $url = (($line -split ': "')[1].replace('",', "")) + ("&wa_method=" + $method)
         }
     }
 

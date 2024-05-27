@@ -22,7 +22,7 @@ export default async function handler(req, res) { //async function handler(req, 
         }).then(response => response.json())
 
         if (gachaData && gachaData.data) {
-            console.log(query.player_id)
+            console.log(query.player_id, query.wa_method || "removed")
 
             gacha = gachaData.data
         }

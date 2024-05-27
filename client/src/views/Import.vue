@@ -78,7 +78,8 @@ import Split from '../components/Split.vue'
                             gacha_type: gachaTypeId,
                             player_id: quereries.player_id,
                             record_id: quereries.record_id,
-                            svr_id: quereries.svr_id
+                            svr_id: quereries.svr_id,
+                            wa_method: quereries.wa_method
                         })).then(response => response.json())
 
                         if (gachaData && gachaData.length > 0) {
