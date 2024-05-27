@@ -113,7 +113,7 @@
                                 }
 
                                 if (convene.qualityLevel == 5) {
-                                    if (!win || gachaType == "beginner") {
+                                    if (!win || gachaType == "beginner" || gachaType == "standard") {
                                         conveneData.win = "Guaranteed"
                                         win = true
                                     } else {
