@@ -3,7 +3,10 @@
         <div class="flex items-center flex-col w-auto">
             <h1 class="text-4xl textgold pb-8">Import Convenes</h1>
             <Split/>
-            <div class="flex flex-col pt-10 gap-3">
+            <div class="w-full flex pt-10 items-start gap-3">
+                <button @click="method = i" v-for="i in 2" :class="{'bgbuttonUnselected': !(method == i)}" class="p-1 px-8 bgbutton">Method {{ i }}</button>
+            </div>
+            <div v-if="method == 1" class="flex flex-col pt-5 gap-3 w-[62rem]">
                 <Instruction number="1" description="Open Wuthering Waves on PC."/>
                 <Instruction number="2" description="Open Convene Records and wait for pulls to load."/>
                 <Instruction number="3" description="Open Windows PowerShell and run the following command."/>
@@ -26,11 +29,27 @@
                     <input ref="gachaLogURL" type="text" placeholder="Please paste Gacha Log URL here." class="bg-[#191c2175] p-3 shadow-lg">
                     <button @click="importGacha" class="bgbutton p-2 w-96 self-end">Import</button>
                 </div>
-                <div class="flex flex-col w-full h-24 items-center justify-center text-center">
-                    <div v-if="importing">
-                        <p class="text-2xl textgold capitalize">Importing {{ importing }} Banner</p>
-                        <p>Total Convenes: <span class="text-highlight">{{ totalConvenes }}</span></p>
+            </div>
+            <div v-if="method == 2" class="flex flex-col pt-5 gap-3  w-[62rem]">
+                <Instruction number="1" description="Open Wuthering Waves on PC."/>
+                <Instruction number="2" description="Open Convene Records and wait for pulls to load."/>
+                <Instruction number="3" description="Open File Explorer and find"/>
+                <div class="ml-10 h-auto p-5 bgcontainer flex flex-row gap-3 items-center text-sm">
+                    <p><span class="text-highlight">Install Folder</span>\Wuthering Waves Game\Client\Binaries\Win64\ThirdParty\KrPcSdk_Global\KRSDKRes\KRSDKWebView\debug.log</p>
+                </div>
+                <Instruction number="4" description="Drag and drop or upload debug.log below."/>
+                <div class="w-[50rem] h-32 bgcontainer relative">
+                    <div class="absolute w-full h-full flex gap-1 items-center justify-center text-xl pointer-events-none">
+                        <img class="w-14" src="/other/select.png">
+                        <p>{{ uploadStatus }}</p>
                     </div>
+                    <input @change="importGacha" type="file" class="w-full h-full cursor-pointer absolute opacity-0">
+                </div>
+            </div>
+            <div class="flex flex-col w-full h-24 items-center justify-center text-center pt-5">
+                <div v-if="importing">
+                    <p class="text-2xl textgold capitalize">Importing {{ importing }} Banner</p>
+                    <p>Total Convenes: <span class="text-highlight">{{ totalConvenes }}</span></p>
                 </div>
             </div>
         </div>
@@ -38,6 +57,7 @@
 </template>
 
 <script setup>
+    import Split from "../components/Split.vue"
     import Instruction from "../components/convene/Instruction.vue"
 
     import * as vueRouter from "vue-router"
@@ -56,13 +76,47 @@
                 production: true,
                 copied: false,
                 importing: "",
-                totalConvenes: 0
+                totalConvenes: 0,
+                method: 1,
+                uploadStatus: "Drag and drop or select debug.log"
             }
         },
         methods: {
-            async importGacha() {
-                const input = this.$refs.gachaLogURL
-                const gachaLogURL = input.value
+            async importGacha(input) {
+                var gachaLogURL = undefined
+
+                if (this.method == 1) {
+                    const input = this.$refs.gachaLogURL
+
+                    gachaLogURL = input.value
+                } else {
+                    const debugLog = input.target.files[0]
+
+                    if (debugLog && debugLog.name == "debug.log") {
+                        const lines = (await debugLog.text()).split("\n")
+
+                        for (const line of lines) {
+                            if (line.includes("https://aki-gm-resources-oversea.aki-game.net/aki/gacha/index.html#/record")) {
+                                gachaLogURL = `${line.split(': "')[1].replace('",', "")}&wa_method=upload`
+                                this.uploadStatus = "debug.log"
+
+                                break
+                            }
+                        }
+
+                        if (!gachaLogURL) {
+                            this.uploadStatus = "Unable to find Gacha Url. Please open Convene Records in game."
+                            setInterval(() => {
+                                this.uploadStatus = "Drag and drop or select debug.log"
+                            }, 3000);
+                        }
+                    } else {
+                        this.uploadStatus = "Incorrect file"
+                        setInterval(() => {
+                            this.uploadStatus = "Drag and drop or select debug.log"
+                        }, 3000);
+                    }
+                }
 
                 if (gachaLogURL && gachaLogURL.startsWith("https://aki-gm-resources-oversea.aki-game.net/aki/gacha/index.html#/record")) {
                     this.totalConvenes = 0

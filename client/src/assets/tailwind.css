@@ -55,6 +55,12 @@ main {
     color: var(--container);
     text-shadow: 0px 0.3px, 0.3px 0px, 0.3px 0.3px;
 }
+.bgbuttonUnselected {
+    background: transparent;
+    color: var(--text);
+    text-shadow: none;
+}
+
 .bgbutton:hover {
     filter: brightness(1.2);
 }
