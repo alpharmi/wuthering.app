@@ -70,7 +70,7 @@
                     for (const [gachaType, gachaTypeId] of Object.entries(gachaTypes)) {
                         this.importing = gachaType
 
-                        const url = this.production? "https://wuthering-app.vercel.app/api/importGacha?": "http://localhost:3000/api/importGacha?"
+                        const url = this.production? "https://wuthering.app/api/importGacha?": "http://localhost:3000/api/importGacha?"
                         const quereries = Object.fromEntries(new URLSearchParams(gachaLogURL.slice(75)))
 
                         const gachaData = await fetch(url + new URLSearchParams({
