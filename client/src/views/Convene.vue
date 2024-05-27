@@ -59,6 +59,7 @@
                                 <th class="w-[15rem] text-description">{{ pull.date }}</th>
                                 <th :style="`color: hsl(${pityColour(pull)},100%,70%)`" class="w-[2rem]">{{ pull.pity || 1 }}</th>
                                 <th class="pl-8 inlineimage"><img :src="`/${pull.type}/${pull.name.replaceAll(':', '_c').toLowerCase()}.webp`" class="h-10 mr-4 scale-[1.3]">{{ pull.name.replaceAll("_", " ") }}</th>
+                                <th v-if="pull.quality == 5" class="tooltip"><img :src="`/other/${pull.win.toLowerCase()}.webp`" class="w-4"><p class="absolute opacity-0 translate-x-5 -translate-y-7 bg-container p-2 rounded-md">{{ pull.win }}<span v-if="pull.win != 'Guaranteed'"> 50:50</span></p></th>
                             </tr>
                         </table>
                         <button @click="amount = 100; switchBanner(banner)" class="mt-2 textshadow">˅</button>
@@ -114,7 +115,6 @@
                 const bannerData = JSON.parse(localStorage.getItem(`${bannerName}_banner`))
 
                 if (filter) {
-                    console.log(this.filters[4])
                     this.filters[filter] = !this.filters[filter]
                 }
 

@@ -107,11 +107,11 @@ main {
 }
 
 
-.tooltip img {
+.tooltip img, .tooltip p {
     transition-property: opacity;
     transition-duration: 200ms;
 }
-.tooltip:hover img {
+.tooltip:hover img, .tooltip:hover p {
     opacity: 100;
 }
 

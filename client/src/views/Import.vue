@@ -38,8 +38,6 @@
 </template>
 
 <script setup>
-    import { version } from 'vue'
-import Split from '../components/Split.vue'
     import Instruction from "../components/convene/Instruction.vue"
 
     import * as vueRouter from "vue-router"
@@ -48,6 +46,8 @@ import Split from '../components/Split.vue'
 </script>
 
 <script>
+    import standard from "../data/standard.json"
+
     const gachaTypes = {beginner: 5, character: 1, weapon: 2, standard: 3}
 
     export default {
@@ -83,9 +83,10 @@ import Split from '../components/Split.vue'
                         })).then(response => response.json())
 
                         if (gachaData && gachaData.length > 0) {
-                            const banner = {data: [], monthlyPulls: [], version: 1.0}
+                            const banner = {data: [], monthlyPulls: [], version: 1.1}
                             const conveneAmount = gachaData.length
                             const pity = {quality5: conveneAmount, quality4: conveneAmount}
+                            var win = true
 
                             this.totalConvenes += conveneAmount
 
@@ -102,12 +103,25 @@ import Split from '../components/Split.vue'
                                     name: convene.name.replaceAll(" ", "_"),
                                     quality: convene.qualityLevel,
                                     type: convene.resourceType.toLowerCase(),
-                                    date: convene.time
+                                    date: convene.time,
+                                    win: "Won",
                                 }
 
                                 if (convene.qualityLevel >= 4) {
                                     conveneData["pity"] = pity[`quality${convene.qualityLevel}`] - i
                                     pity[`quality${convene.qualityLevel}`] = i
+                                }
+
+                                if (convene.qualityLevel == 5) {
+                                    if (!win || gachaType == "beginner") {
+                                        conveneData.win = "Guaranteed"
+                                        win = true
+                                    } else {
+                                        if (standard.includes(convene.name)) {
+                                            conveneData.win = "Lost"
+                                            win = false
+                                        }
+                                    }
                                 }
 
                                 banner.data.push(conveneData)
@@ -119,7 +133,7 @@ import Split from '../components/Split.vue'
                             localStorage.setItem(`${gachaType}_banner`, JSON.stringify(banner))
                         } else {
                             if (!localStorage.getItem(`${gachaType}_banner}`)) {
-                                localStorage.setItem(`${gachaType}_banner`, JSON.stringify({data: [], monthlyPulls: [], pity: {quality5: 0, quality4: 0}, version: 1.0}))
+                                localStorage.setItem(`${gachaType}_banner`, JSON.stringify({data: [], monthlyPulls: [], pity: {quality5: 0, quality4: 0}, version: 1.1}))
                             }
                         }
                     }
