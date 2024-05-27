@@ -49,6 +49,8 @@ if (Test-Path ($gachaLogPath + "\debug.log") -PathType Leaf) {
 
         if ($line.Contains("https://aki-gm-resources-oversea.aki-game.net/aki/gacha/index.html#/record")) {
             $url = (($line -split ': "')[1].replace('",', "")) + ("&wa_method=" + $method)
+
+            break
         }
     }
 
