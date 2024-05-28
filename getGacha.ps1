@@ -20,9 +20,16 @@ if (!$gamePath -or !$gachaLogPathExists) {
 
     $path = read-host "Game path: "
 
-    if ($path -And $path.ToLower() -like "*wuthering*") {
-        $gamePath = $path
-        Write-Output "Manually found game path."
+    if ($path) {
+        if ($path.EndsWith("Wuthering Waves")) {
+            $gamePath = $path
+            Write-Output "Manually found game path."
+        } elseif ($path.EndsWith("Wuthering Waves Game")) {
+            $gamePath = $path.replace("Wuthering Waves Game", "")
+            Write-Output "Manually found game path."
+        } else {
+            Write-Output "Invalid game path. Please try again."
+        }
     } else {
         Write-Output "Invalid game path. Please try again."
     }
