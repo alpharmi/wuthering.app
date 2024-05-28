@@ -70,4 +70,6 @@ if (Test-Path ($gachaLogPath + "\debug.log") -PathType Leaf) {
     } else {
         Write-Output "Unable to find Gacha Url. Please open Convene Records in game."
     }
+} else {
+    Write-Output "Unable to find Gacha Url. Please open Convene Records in game."
 }
