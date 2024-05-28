@@ -35,9 +35,9 @@ Write-Output " "
 $gachaLogPath = $gamePath + '\Wuthering Waves Game\Client\Binaries\Win64\ThirdParty\KrPcSdk_Global\KRSDKRes\KRSDKWebView'
 
 #Find Gacha Url
-Write-Output "Finding Gacha Url..."
-
 if (Test-Path ($gachaLogPath + "\debug.log") -PathType Leaf) {
+    Write-Output "Finding Gacha Url..."
+
     Copy-Item -Path ($gachaLogPath + "\debug.log") -Destination ($gachaLogPath + "\debug_copy.log")
     $cacheData = Get-Content ($gachaLogPath + "\debug.log")
     Remove-Item -Path ($gachaLogPath + "\debug_copy.log")
@@ -63,6 +63,4 @@ if (Test-Path ($gachaLogPath + "\debug.log") -PathType Leaf) {
     } else {
         Write-Output "Unable to find Gacha Url. Please open Convene Records in game."
     }
-} else {
-    Write-Output "Unable to find Gacha Url. Please open Convene Records in game."
 }
