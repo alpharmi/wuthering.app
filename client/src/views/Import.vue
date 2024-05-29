@@ -127,7 +127,7 @@
                         const url = this.production? "https://wuthering-app.vercel.app/api/importGacha?": "http://localhost:3000/api/importGacha?"
                         const quereries = Object.fromEntries(new URLSearchParams(gachaLogURL.slice(75)))
 
-                        const gachaData = await fetch(url + new URLSearchParams({
+                        var gachaData = await fetch(url + new URLSearchParams({
                             resources_id: quereries.resources_id, 
                             gacha_type: gachaTypeId,
                             player_id: quereries.player_id,
@@ -162,6 +162,10 @@
                                 if (convene.qualityLevel >= 4) {
                                     conveneData["pity"] = pity[`quality${convene.qualityLevel}`] - i
                                     pity[`quality${convene.qualityLevel}`] = i
+
+                                    if (convene.qualityLevel == 5) {
+                                        pity.quality4 = i
+                                    }
                                 }
 
                                 if (convene.qualityLevel == 5) {
