@@ -65,7 +65,7 @@
                                     <div v-if="pulls" v-for="pull in pulls.filter(pull => pull.quality == 5)" class="w-max h-5 flex">
                                         <div class="h-5 flex items-center bg-highlight gap-1 px-1 rounded-md">
                                             <p class="text-container textshadow">{{ pull.pity }}</p>
-                                            <p class="text-[#282c33] textshadow text-center">{{ pull.name }}</p>
+                                            <p class="text-[#282c33] textshadow text-center">{{ pull.name.replaceAll("_", " ") }}</p>
                                         </div>
                                     </div>
                                 </div>
