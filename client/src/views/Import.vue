@@ -68,7 +68,7 @@
 <script>
     import standard from "../data/standard.json"
 
-    const gachaTypes = {beginner: 5, character: 1, weapon: 2, standard: 3}
+    const gachaTypes = {beginner: 5, character: 1, weapon: 2, standard: 3/*, choice: 6*/}
 
     export default {
         data() {
@@ -100,7 +100,7 @@
                                 gachaLogURL = `${line.split(': "')[1].replace('",', "")}&wa_method=upload`
                                 this.uploadStatus = "debug.log"
 
-                                break
+                                //break
                             }
                         }
 
@@ -137,20 +137,18 @@
                         })).then(response => response.json())
 
                         if (gachaData && gachaData.length > 0) {
-                            const banner = {data: [], monthlyPulls: [], version: 1.1}
+                            const banner = {data: [], monthlyPulls: [], wins: 0, version: 1.2}
                             const conveneAmount = gachaData.length
                             const pity = {quality5: conveneAmount, quality4: conveneAmount}
+                            const wins = {won: 0, lost: 0}
                             var win = true
 
                             this.totalConvenes += conveneAmount
 
-                            /*
-                            const cachedBanner = JSON.parse(localStorage.getItem(`${gachaType}_banner`))
+                            //const cachedBanner = JSON.parse(localStorage.getItem(`${gachaType}_banner`))
 
-                            if (cachedBanner && cachedBanner.monthlyPulls) {
-
-                            }
-                            */
+                            //gachaData.splice(gachaData.map(pull => pull.time).indexOf("2024-05-24 11:52:23"))
+                            //console.log(gachaData)
 
                             for (const [i, convene] of Object.entries(gachaData).reverse()) {
                                 const conveneData = {
@@ -167,27 +165,42 @@
                                 }
 
                                 if (convene.qualityLevel == 5) {
-                                    if (!win || gachaType == "beginner" || gachaType == "standard") {
+                                    if (!win || gachaType == "beginner" || gachaType == "standard" || gachaType == "choice") {
                                         conveneData.win = "Guaranteed"
                                         win = true
                                     } else {
                                         if (standard.includes(convene.name)) {
                                             conveneData.win = "Lost"
                                             win = false
+                                            wins.lost += 1
+                                        } else {
+                                            wins.won += 1
                                         }
+                                    }
+
+                                    if (gachaType == "beginner" || gachaType == "standard" || gachaType == "choice") {
+                                        wins.won += 1
                                     }
                                 }
 
                                 banner.data.push(conveneData)
                             }
 
+                            const quality4Pulls = banner.data.filter(pull => pull.quality == 4)
+                            const quality5Pulls = banner.data.filter(pull => pull.quality == 5)
+
+                            const quality4Average =  Math.round(quality4Pulls.reduce((a, b) => a + b.pity, 0) / quality4Pulls.length) || 0
+                            const quality5Average =  Math.round(quality5Pulls.reduce((a, b) => a + b.pity, 0) / quality5Pulls.length) || 0
+
                             banner.data.reverse()
-                            banner.pity = {quality5: Number(pity.quality5), quality4: Number(pity.quality4)}
+                            banner.pity = {quality5: Number(pity.quality5), quality4: Number(pity.quality4), average5: quality5Average, average4: quality4Average}
+                            banner.wins = ((wins.won / (wins.won + wins.lost)) * 100) || 0
 
                             localStorage.setItem(`${gachaType}_banner`, JSON.stringify(banner))
+                            localStorage.setItem(`choice_banner`, JSON.stringify({data: [], monthlyPulls: [], wins: 0, pity: {quality5: 0, quality4: 0, average5: 0, average4: 0}, version: 1.2}))
                         } else {
                             if (!localStorage.getItem(`${gachaType}_banner}`)) {
-                                localStorage.setItem(`${gachaType}_banner`, JSON.stringify({data: [], monthlyPulls: [], pity: {quality5: 0, quality4: 0}, version: 1.1}))
+                                localStorage.setItem(`${gachaType}_banner`, JSON.stringify({data: [], monthlyPulls: [], wins: 0, pity: {quality5: 0, quality4: 0, average5: 0, average4: 0}, version: 1.2}))
                             }
                         }
                     }

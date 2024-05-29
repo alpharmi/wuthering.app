@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     screens: {
       "md": {"max": "1300px"},
-      "sm": {"max": "900px"}
+      "sm": {"max": "900px"},
+      "convene-break": {"max": "1500px"}
     },
     extend: {
       colors: {
