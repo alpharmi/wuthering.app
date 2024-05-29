@@ -135,7 +135,7 @@
         methods: {
             pityColour(pull) {
                 if (pull.quality == 5) {
-                    return pull.pity
+                    return 80 - pull.pity
                 } else if (pull.quality == 4) {
                     return 80 - (pull.pity * 8)
                 }
