@@ -50,14 +50,14 @@
                                     <div class="h-[10rem] text-sm w-full">
                                         <p class="text-xl flex justify-between text-quality5">5 Star</p>
                                         <div>
-                                            <p class="flex w-full justify-between">Average Pity <span class="text-quality5">{{ pity.average5 }}</span></p>
-                                            <p class="flex w-full justify-between">Win 50:50 <span class="text-quality5">{{ wins }}%</span></p>
+                                            <p class="flex w-full justify-between">Average Pity: <span class="text-quality5">{{ pity.average5 }}</span></p>
+                                            <p class="flex w-full justify-between">Win 50:50: <span class="text-quality5">{{ wins }}%</span></p>
                                         </div>
                                     </div>
                                     <div class="h-[10rem] text-sm w-full">
                                         <p class="text-xl flex justify-between text-quality4">4 Star</p>
                                         <div>
-                                            <p class="flex w-full justify-between">Average Pity <span class="text-quality4">{{ pity.average4 }}</span></p>
+                                            <p class="flex w-full justify-between">Average Pity: <span class="text-quality4">{{ pity.average4 }}</span></p>
                                         </div>
                                     </div>
                                 </div>
