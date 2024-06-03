@@ -4,7 +4,7 @@
     </div>
     <div class="flex px-[8%] pt-10 h-full gap-10">
         <div class="flex flex-col gap-5 w-48 min-w-48 h-auto">
-            <button @click="amount = 10; switchBanner(bannerName)" v-for="bannerName in ['character', 'weapon', 'standard', 'beginner']" class="w-full flex justify-end shadow-md">
+            <button @click="amount = 10; switchBanner(bannerName)" v-for="bannerName in ['character', 'weapon', 'standard', 'beginner', 'choice', 'weapon_choice']" class="w-full flex justify-end shadow-md">
                 <img v-if="bannerName != banner" :src="`/banners/${bannerName}.png`" class="banner relative hover:scale-[1.05] hover:brightness-125 transition-all duration-100">
                 <img v-if="bannerName == banner" :src="`/banners/${bannerName}_selected.png`">
             </button>
@@ -12,7 +12,7 @@
         <div class="w-0.5 opacity-50 h-[45rem] from-transparent via-highlight via-50% to-transparent bg-gradient-to-b"></div>
         <div class="flex flex-col w-full">
             <div :class="{'blur-sm brightness-[0.2]': pulls == null}" class="flex flex-col w-full">
-                <h1 class="capitalize textgold text-xl">{{ banner }} Convene</h1>
+                <h1 class="capitalize textgold text-xl">{{ banner.replaceAll("_", " ") }} Convene</h1>
                 <div class="flex flex-wrap w-full gap-5 pt-3">
                     <div class="flex gap-5 convene-break:flex-row flex-col">
                         <div class="w-[19rem] flex flex-col gap-3 h-[19rem]">
@@ -155,6 +155,10 @@
                     this.wins = bannerData.wins
                     this.version = bannerData.version
                     this.pulls = bannerData.data
+                } else {
+                    if (localStorage.getItem("character_banner")) {
+                        this.pulls = null
+                    }
                 }
             }
         },

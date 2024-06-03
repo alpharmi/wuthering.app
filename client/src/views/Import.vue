@@ -48,7 +48,7 @@
             </div>
             <div class="flex flex-col w-full h-24 items-center justify-center text-center pt-5">
                 <div v-if="importing">
-                    <p class="text-2xl textgold capitalize">Importing {{ importing }} Banner</p>
+                    <p class="text-2xl textgold capitalize">Importing {{ importing.replaceAll("_", " ") }} Banner</p>
                     <p>Total Convenes: <span class="text-highlight">{{ totalConvenes }}</span></p>
                 </div>
             </div>
@@ -68,7 +68,8 @@
 <script>
     import standard from "../data/standard.json"
 
-    const gachaTypes = {beginner: 5, character: 1, weapon: 2, standard: 3/*, choice: 6*/}
+    const gachaTypes = {beginner: 5, character: 1, weapon: 2, standard: 3, choice: 6, weapon_choice: 4}
+    const guaranteedGachaTypes = ["beginner", "standard", "choice", "weapon_choice"]
 
     export default {
         data() {
@@ -169,7 +170,7 @@
                                 }
 
                                 if (convene.qualityLevel == 5) {
-                                    if (!win || gachaType == "beginner" || gachaType == "standard" || gachaType == "choice") {
+                                    if (!win || guaranteedGachaTypes.includes(gachaType)) {
                                         conveneData.win = "Guaranteed"
                                         win = true
                                     } else {
@@ -182,7 +183,7 @@
                                         }
                                     }
 
-                                    if (gachaType == "beginner" || gachaType == "standard" || gachaType == "choice") {
+                                    if (guaranteedGachaTypes.includes(gachaType)) {
                                         wins.won += 1
                                     }
                                 }
@@ -201,7 +202,6 @@
                             banner.wins = Math.round(((wins.won / (wins.won + wins.lost)) * 100)) || 0
 
                             localStorage.setItem(`${gachaType}_banner`, JSON.stringify(banner))
-                            localStorage.setItem(`choice_banner`, JSON.stringify({data: [], monthlyPulls: [], wins: 0, pity: {quality5: 0, quality4: 0, average5: 0, average4: 0}, version: 1.2}))
                         } else {
                             if (!localStorage.getItem(`${gachaType}_banner}`)) {
                                 localStorage.setItem(`${gachaType}_banner`, JSON.stringify({data: [], monthlyPulls: [], wins: 0, pity: {quality5: 0, quality4: 0, average5: 0, average4: 0}, version: 1.2}))
