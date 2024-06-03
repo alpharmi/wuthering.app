@@ -198,7 +198,7 @@
 
                             banner.data.reverse()
                             banner.pity = {quality5: Number(pity.quality5), quality4: Number(pity.quality4), average5: quality5Average, average4: quality4Average}
-                            banner.wins = ((wins.won / (wins.won + wins.lost)) * 100) || 0
+                            banner.wins = Math.round(((wins.won / (wins.won + wins.lost)) * 100)) || 0
 
                             localStorage.setItem(`${gachaType}_banner`, JSON.stringify(banner))
                             localStorage.setItem(`choice_banner`, JSON.stringify({data: [], monthlyPulls: [], wins: 0, pity: {quality5: 0, quality4: 0, average5: 0, average4: 0}, version: 1.2}))
