@@ -15,7 +15,7 @@ $method = "automatic"
 #EGS Version or Fallback to Manual
 if (!$gamePath -or !$gachaLogPathExists) {
     $currentUserSID = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
-    $muiCachePath = "Registry::HKEY_USERS\$currentUserSID\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache"
+    $muiCachePath = "Registry::HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache"
     $filteredEntries = (Get-ItemProperty -Path $muiCachePath).PSObject.Properties | Where-Object { $_.Value -like "*wuthering*" }
     if ($filteredEntries.Count -ne 0) {
         $gachaLogPath = ($filteredEntries[0].Name -split 'client-win64-shipping')[0] + "ThirdParty\KrPcSdk_Global\KRSDKRes\KRSDKWebView"
